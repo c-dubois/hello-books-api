@@ -28,13 +28,12 @@ def get_all_books():
     title_param = request.args.get("title")
     if title_param:
         query = query.where(Book.title.ilike(f"%{title_param}%"))
-        
+
     description_param = request.args.get("description")
     if description_param:
         query = query.where(Book.description.ilike(f"%{description_param}%"))
 
     query = query.order_by(Book.id)
-
     books = db.session.scalars(query)
 
     books_response = []
