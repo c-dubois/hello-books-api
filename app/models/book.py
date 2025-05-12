@@ -6,6 +6,10 @@ class Book(db.Model):
     title: Mapped[str]
     description: Mapped[str]
 
+    @classmethod
+    def from_dict(cls):
+        pass
+
 
 
 # class Book:
