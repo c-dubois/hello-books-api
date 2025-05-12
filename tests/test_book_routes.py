@@ -77,7 +77,7 @@ def test_get_one_book_missing_record(client, two_saved_books):
 
     # Assert
     assert response.status_code == 404
-    assert response_body == {"message": "book 3 not found"}
+    assert response_body == {"message": "Book 3 not found"}
 
 # When we call `get_one_book` with a non-numeric ID, we get the expected error message
 def test_get_one_book_invalid_id(client, two_saved_books):
@@ -87,7 +87,7 @@ def test_get_one_book_invalid_id(client, two_saved_books):
 
     # Assert
     assert response.status_code == 400
-    assert response_body == {"message": "book cat invalid"}
+    assert response_body == {"message": "Book cat invalid"}
 
 def test_create_one_book(client):
     # Act
@@ -197,7 +197,7 @@ def test_update_book_missing_record(client, two_saved_books):
 
     # Assert
     assert response.status_code == 404
-    assert response_body == {"message": "book 3 not found"}
+    assert response_body == {"message": "Book 3 not found"}
 
 def test_update_book_invalid_id(client, two_saved_books):
     # Arrange
@@ -212,7 +212,7 @@ def test_update_book_invalid_id(client, two_saved_books):
 
     # Assert
     assert response.status_code == 400
-    assert response_body == {"message": "book cat invalid"}
+    assert response_body == {"message": "Book cat invalid"}
 
 def test_delete_book(client, two_saved_books):
     # Act
@@ -231,7 +231,7 @@ def test_delete_book_missing_record(client, two_saved_books):
 
     # Assert
     assert response.status_code == 404
-    assert response_body == {"message": "book 3 not found"}
+    assert response_body == {"message": "Book 3 not found"}
 
 def test_delete_book_invalid_id(client, two_saved_books):
     # Act
@@ -240,4 +240,4 @@ def test_delete_book_invalid_id(client, two_saved_books):
 
     # Assert
     assert response.status_code == 400
-    assert response_body == {"message": "book cat invalid"}
+    assert response_body == {"message": "Book cat invalid"}

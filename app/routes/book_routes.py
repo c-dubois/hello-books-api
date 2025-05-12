@@ -1,5 +1,6 @@
 from flask import Blueprint, Response, abort, make_response, request
 from app.models.book import Book
+from .route_utilities import validate_model
 from ..db import db
 
 bp = Blueprint("bp", __name__, url_prefix="/books")
@@ -42,13 +43,13 @@ def get_all_books():
     
 @bp.get("/<book_id>")
 def get_one_book(book_id):
-    book = validate_book(book_id)
+    book = validate_model(Book ,book_id)
 
     return book.to_dict()
 
 @bp.put("/<book_id>")
 def update_book(book_id):
-    book = validate_book(book_id)
+    book = validate_model(Book, book_id)
     request_body = request.get_json()
 
     book.title = request_body["title"]
@@ -60,29 +61,11 @@ def update_book(book_id):
 
 @bp.delete("/<book_id>")
 def delete_book(book_id):
-    book = validate_book(book_id)
+    book = validate_model(Book, book_id)
     db.session.delete(book)
     db.session.commit()
 
     return "", 204
-
-def validate_book(book_id):
-    try:
-        book_id = int(book_id)
-    except:
-        response = {"message": f"book {book_id} invalid"}
-        abort(make_response(response, 400))
-
-    query = db.select(Book).where(Book.id == book_id)
-    book = db.session.scalar(query)
-
-    if not book:
-        response = {"message": f"book {book_id} not found"}
-        abort(make_response(response, 404))
-
-    return book
-
-
 
 
 # ORIGINAL HARD-CODED ROUTES
