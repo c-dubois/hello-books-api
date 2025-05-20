@@ -28,10 +28,8 @@ def get_all_authors():
     if name_param:
         query = query.where(Author.title.ilike(f"%{name_param}%"))
 
-    query = query.order_by(Author.id)
-    authors = db.session.scalars(query)
+    authors = db.session.scalars(query.order_by(Author.id))
 
-    authors_response = []
-    for author in authors:
-        authors_response.append(author.to_dict())
+    authors_response = [author.to_dict() for author in authors]
+
     return authors_response
