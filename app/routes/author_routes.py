@@ -3,7 +3,7 @@ from app.models.author import Author
 from .route_utilities import validate_model
 from ..db import db
 
-bp = Blueprint("bp", __name__, url_prefix="/authors")
+bp = Blueprint("authors_bp", __name__, url_prefix="/authors")
 
 @bp.post("")
 def create_book():
