@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from app.models.genre import Genre
 from app.models.book import Book
 from .route_utilities import create_model, get_models_with_filters, validate_model
+from ..db import db
 
 bp = Blueprint("genres_bp", __name__, url_prefix="/genres")
 
@@ -27,3 +28,16 @@ def get_books_by_genre(genre_id):
     genre = validate_model(Genre, genre_id)
     response = [book.to_dict() for book in genre.books]
     return response
+
+@bp.put("/<genre_id>/books/<book_id>")
+def update_book_with_genre(genre_id, book_id):
+    genre = validate_model(Genre, genre_id)
+    book = validate_model(Book, book_id)
+    
+    if genre not in book.genres:
+        book.genres.append(genre)
+    
+    db.session.commit()
+    
+    return book.to_dict(), 200
+

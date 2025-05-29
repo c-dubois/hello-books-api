@@ -34,6 +34,13 @@ class Book(db.Model):
             book_as_dict["genres"] = [genre.name for genre in self.genres]
             
         return book_as_dict
+    
+    def update_book(self, book_data):
+        valid_keys = {'title', 'description', 'author_id'}
+        
+        for key, value in book_data.items():
+            if key in valid_keys:
+                setattr(self, key, value)
 
 
 
