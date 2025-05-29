@@ -30,6 +30,8 @@ class Book(db.Model):
         book_as_dict = dict(id=self.id, title=self.title, description=self.description)
         if self.author:
             book_as_dict["author"] = self.author.name
+        if self.genres:
+            book_as_dict["genres"] = [genre.name for genre in self.genres]
             
         return book_as_dict
 
