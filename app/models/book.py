@@ -25,6 +25,7 @@ class Book(db.Model):
         book_as_dict = dict(id=self.id, title=self.title, description=self.description)
         if self.author:
             book_as_dict["author"] = self.author.name
+            
         return book_as_dict
 
 
